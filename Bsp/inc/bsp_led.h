@@ -5,7 +5,7 @@
 #include "stm32f10x.h"
 typedef enum //定义LED颜色的枚举类型
 { 
-	eLedColorRed,
+	eLedColorRed = 0,
 	eLedColorGreen,
 	eLedColorBlue,
 	eLedColorYellow,

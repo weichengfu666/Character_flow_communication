@@ -38,8 +38,8 @@ void Serial_Init(void)
 	
 	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_Init(&NVIC_InitStructure);
 	
 	USART_Cmd(USART1, ENABLE);
@@ -141,7 +141,6 @@ void USART1_IRQHandler(void)
 				Serial_RxFlag = 1;
 			}
 		}
-		
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
 	}
 }

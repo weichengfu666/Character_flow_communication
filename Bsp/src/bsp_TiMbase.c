@@ -14,7 +14,7 @@ static void BASIC_TIM_NVIC_Config(void)
 		// 设置主优先级为 0
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;	 
 	  // 设置抢占优先级为3
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;	
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;	
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }

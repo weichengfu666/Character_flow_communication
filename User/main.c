@@ -26,6 +26,7 @@ int main(void)
 //	char *str = "{blink:{blinkTime:100,ledColor:eLedColorGreen,ledState:eLedStateOn}}";
 
 	char* pstr;
+    uint32_t tempBlinkTime = 0;
 	bsp_init(); 
 //	OLED_ShowString(1, 1, "TxPacket");
 //	OLED_ShowNum(3, 1, strlen("TxPacket"),10);
@@ -37,13 +38,12 @@ int main(void)
 	Led1.ledMode = eLedBlink;
 	Led1.blink = Blink1;
 
-
-
 	while(1)
 	{
 		if (Serial_RxFlag == 1)
 		{
 			pstr = Serial_RxPacket;
+            
 			while(*pstr++)
 			{
 				//	char *str = "{blink:{blinkTime:100,ledColor:eLedColorGreen,ledState:eLedStateOn}}";
@@ -54,8 +54,15 @@ int main(void)
 				if(strncmp(pstr,"blinkTime:",strlen("blinkTime:")) == 0)
 				{
 					pstr += strlen("blinkTime:");
+                    tempBlinkTime = *pstr++ - '0';
+                    while(*pstr != ',')
+                    {
+                        tempBlinkTime *= 10;
+                        tempBlinkTime += *pstr - '0';
+                        pstr++;
+                    }
 					__set_BASEPRI(1);
-					Blink1.blinkTime = 50; //最低50ms,猜测是定时器中断函数的问题
+					Blink1.blinkTime = tempBlinkTime; //最低50ms,猜测是定时器中断函数的问题
 					__set_BASEPRI(0);
 				}
 				if(strncmp(pstr,"ledColor:",strlen("ledColor:")) == 0)

@@ -158,17 +158,16 @@ void SysTick_Handler(void)
   */
 extern uint32_t time_ms;
 extern Led_t Led1;
+uint32_t lastTime_ms;
 void  BASIC_TIM_IRQHandler(void)
 {
-	static uint32_t lastTime_ms = 0;
-	
 	if ( TIM_GetITStatus( BASIC_TIM, TIM_IT_Update) != RESET ) 
 	{	
 		time_ms++;
 		TIM_ClearITPendingBit(BASIC_TIM , TIM_FLAG_Update);  
 		if(Led1.blink.ledState == eLedStateOn)
 		{
-			if((time_ms - lastTime_ms) == Led1.blink.blinkTime)
+			if((time_ms - lastTime_ms) >= Led1.blink.blinkTime)
 			{
 				lastTime_ms = time_ms;
 				if(Led1.blink.ledColor == eLedColorRed)
