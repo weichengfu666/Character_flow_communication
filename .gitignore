@@ -22,6 +22,7 @@ Objects/
 #Keil Layout File
 *.uvguix.*
 *.uvoptx
+*.uvprojx
  
 #DebugConfig
 DebugConfig/
